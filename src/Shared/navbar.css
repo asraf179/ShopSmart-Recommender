@@ -1,0 +1,12 @@
+.logoWrapper img{
+        width:;
+        
+}
+.count{
+        position:absolute;
+        top:0px;
+        right:0px;
+        background:#ea2b0f;
+        border-radius:50%;
+        color:#fff;
+}
