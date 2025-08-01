@@ -28,7 +28,7 @@ export const AccountMenu = () => {
         <button
           onClick={() => {
             localStorage.clear(); // or remove token
-            navigate("/login");
+            navigate("/entry");
           }}
           className="w-full text-left px-4 py-2  hover:bg-lime-600 text-sm"
         >

@@ -1,15 +1,11 @@
 import React, { useContext, useState } from "react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import StarDisplay from "./StarDisplay";
 import { CartContext } from "../CartProvider/CartProvider";
+import Favourite from "./Favourite";
 
 export const ProductCard = ({ product, onClick }) => {
-  const [isFav, setIsFav] = useState(false);
   const{addToCart}=useContext(CartContext)
 
-  const handleFavorite = () => {
-    setIsFav((prev) => !prev);
-  };
 
   const handleImageClick = () => {
     onClick(product);
@@ -23,12 +19,7 @@ export const ProductCard = ({ product, onClick }) => {
 
   return (
     <div className="relative border rounded-xl shadow-sm hover:shadow-lg transition p-3 bg-white">
-      <button
-        onClick={handleFavorite}
-        className="absolute top-2 right-2 text-xl text-red-500"
-      >
-        {isFav ? <AiFillHeart /> : <AiOutlineHeart />}
-      </button>
+     <Favourite productId={product.product_id}></Favourite>
 
       <img
         src={product.clean_img_link}

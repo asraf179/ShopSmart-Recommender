@@ -1,6 +1,7 @@
 // src/pages/Recommended.jsx
-import React from "react";
+import React, { useContext } from "react";
 import { ProductCard } from "../../components/ProductCard";
+import { DataContext } from "../../DataProvider/DataProvider";
 
 const dummyContentBased = [
   { title: "Wireless Headphones", price: "$49.99" },
@@ -19,8 +20,10 @@ const dummyCollaborative = [
 ];
 
 const Recommended = () => {
+  const{contentBasedRecommendations,selectedProduct,setSelectedProduct,collaborativeBasedRecommendation}=useContext(DataContext)
   return (
     <div className="p-6">
+      
       <h1 className="text-3xl font-bold text-center mb-6">🔮 Recommended for You</h1>
 
       {/* Content-Based Recommendation */}
@@ -30,7 +33,7 @@ const Recommended = () => {
           These are similar to products you’ve bought, reviewed, or liked.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {dummyContentBased.map((product, index) => (
+          {contentBasedRecommendations.map((product, index) => (
             <ProductCard key={`cb-${index}`} product={product} />
           ))}
         </div>
@@ -43,7 +46,7 @@ const Recommended = () => {
           Based on what other users with similar behavior are buying.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {dummyCollaborative.map((product, index) => (
+          {collaborativeBasedRecommendation.map((product, index) => (
             <ProductCard key={`cf-${index}`} product={product} />
           ))}
         </div>

@@ -6,11 +6,11 @@ import Footer from "../Shared/Footer";
 const Root = () => {
   return (
     <div>
-      <div className="lg:ml-16 lg:mr-16">
+      <div className="">
         <div>
           <Navbar></Navbar>
         </div>
-        <div>
+        <div className="lg:ml-16 lg:mr-16">
           <Outlet></Outlet>
         </div>
       </div>

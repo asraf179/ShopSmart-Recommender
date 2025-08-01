@@ -16,7 +16,7 @@ const Navbar = () => {
   const{user}=useContext(AuthContext)
   const navigate=useNavigate()
   return (
-    <div className=" mx-7 p-4 shadow-sm shadow-slate-800 ">
+    <div className="  p-4 shadow-sm shadow-slate-800 mb-20 ">
       <div className="navbar bg-base-100 shadow-sm mt-4">
         <div className="navbar-start ">
           <div className="dropdown">
@@ -41,9 +41,11 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-                <li>
+                {/**
+                 * <li>
                         <CategoryMenu></CategoryMenu>
                 </li>
+                 */}
             </ul>
           </div>
           <div className="container">
@@ -67,12 +69,8 @@ const Navbar = () => {
         </div>
          */}
         <div className="flex  gap-3  rounded-md  ">
-         <div onClick={()=>navigate('/login')}>
-          login
-         </div>
 
           <AccountMenu></AccountMenu>
-          <div className="flex items-center p-2  ">${totalAmount}</div>
           <div className="flex relative shadow-sm  shadow-white  rounded-full ">
             <IoBagOutline className="h-11 w-11  flex rounded-full items-center  p-2 "
             onClick={()=>navigate('/cart')}
@@ -86,8 +84,8 @@ const Navbar = () => {
       <div className="w-full hidden  lg:flex">
         <div className="grid grid-cols-8 gap-20 w-full mt-3">
           {/*all catagories section start */}
-          <div className="col-span-2 p-3 text-center bg-sky-500 rounded-full  ">
-            <CategoryToggle></CategoryToggle>
+          <div className="col-span-2 p-3 text-center rounded-full  ">
+           {/** <CategoryToggle></CategoryToggle> */}
           </div>
           {/*Home section start */}
           <div className="col-span-6 ml-4 flex items-center justify-evenly  bg-rose-600 rounded-md px-6 py-3">
@@ -96,6 +94,9 @@ const Navbar = () => {
             </button>
             <button className="text-gray-700 font-medium hover:text-sky-600 transition">
              <NavLink to='/recommended'> Recommended Items</NavLink>
+            </button>
+            <button className="text-gray-700 font-medium hover:text-sky-600 transition">
+             <NavLink to='/favourite'> wishlit </NavLink>
             </button>
             <button className="text-gray-700 font-medium hover:text-sky-600 transition">
               Popular Items

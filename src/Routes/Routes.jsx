@@ -7,13 +7,20 @@ import PrivateRoutes from '../AuthProvider/PrivateRoutes'
   import { CartRoute } from "../Cart/CartRoute";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import Search_result from "../Pages/Search_result";
+import FavouriteItems from "../Pages/Favourite";
+import EntryPage from "../Pages/Entry_page/EntryPage";
+
 
 const router=createBrowserRouter([
         {
+          
           path: "/",
-          element: <Root></Root>,
+          element:<PrivateRoutes><Root></Root></PrivateRoutes> ,
+            
          // errorElement:<ErrorPage></ErrorPage>,
           children:[
+            
             {
               path:'/',
               element:<Home></Home>
@@ -30,20 +37,25 @@ const router=createBrowserRouter([
               path:'/cart',
             element:<CartRoute></CartRoute>
           },
+          {
+            path:'/search_result',
+            element:<Search_result></Search_result>
+          }
          
 
           ]
+       
         },
-        
-             {
-          path:"/login",
-          element:<Login></Login>,
-        },
+          {
+            path:"/entry",
+            element:<EntryPage></EntryPage>
+          },
         {
-          path:'/register',
-          element:<Register></Register>
+          path:"/favourite",
+          element:<FavouriteItems></FavouriteItems>
         }
-     
-      ])
+      ],
+      
+    )
 
 export default router;

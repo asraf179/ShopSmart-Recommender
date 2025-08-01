@@ -1,24 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { createContext } from "react";
+import { useNavigate } from "react-router";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState([0]);
   const [user, setUser] = useState(null); // store username or user data
   //const [token, setToken] = useState(null); // store JWT token
   const [loading, setLoading] = useState(true);
+
   // Load token and user from localStorage on mount
   useEffect(() => {
-     const token = localStorage.getItem("token");
-     
-       
+    const token = localStorage.getItem("token");
 
-  if (!token) {
-    console.error("Token not found in localStorage");
-    return;
-  }
+    
+    
     axios
-      .get("http://127.0.0.1:8000/api/verify_token/", {
+      .get("http://127.0.0.1:8000/api/auth/verify_token/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -26,23 +24,29 @@ const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res.data.valid) {
           console.log("Token is valid for user:", res.data.user_id);
-          setUser(res.data.user_id)
-          setLoading(false)
+          setUser(res.data.user_id);
+          setLoading(false);
+           if(window.location.pathname !=="/")
+       {
+        window.location.href="/"
+       }
         }
       })
       .catch((err) => {
-        console.error("Token invalid or expired",err);
-        
-        
-
+        console.error("Token invalid or expired", err);
+       if(window.location.pathname !=="/entry")
+       {
+        window.location.href="/entry"
+       }
+       setLoading(false)
       });
   }, []);
 
   // Register function
   const register = async (username, email, password) => {
     try {
-      console.log('yes')
-      const res = await axios.post("http://127.0.0.1:8000/api/register/", {
+      //console.log('yes')
+      const res = await axios.post("http://127.0.0.1:8000/api/auth/register/", {
         username,
         email,
         password,
@@ -56,7 +60,7 @@ const AuthProvider = ({ children }) => {
   // Login function
   const login = async (identifier, password) => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/login/", {
+      const res = await axios.post("http://127.0.0.1:8000/api/auth/login/", {
         identifier,
         password,
       });
@@ -67,7 +71,10 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem(
           "user",
           JSON.stringify({ username: res.data.user })
+        
         );
+        
+         
       }
       return { success: true, data: res.data };
     } catch (error) {
@@ -81,13 +88,31 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+     if(window.location.pathname !=="/entry")
+       {
+        window.location.href="/entry"
+       }
+       setLoading(false)
+
   };
 
   // Axios instance with toke
 
   return (
     <div>
-      <AuthContext.Provider value={{ setAllProducts, allProducts,login,logout,register,user,setUser,loading,setLoading }}>
+      <AuthContext.Provider
+        value={{
+          setAllProducts,
+          allProducts,
+          login,
+          logout,
+          register,
+          user,
+          setUser,
+          loading,
+          setLoading,
+        }}
+      >
         {children}
       </AuthContext.Provider>
     </div>

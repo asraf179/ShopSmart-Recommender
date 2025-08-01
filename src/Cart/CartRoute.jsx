@@ -10,7 +10,7 @@ const CartRoute = () => {
       cartItems={cartItems}
       onQuantityChange={onQuantityChange}
       onRemove={onRemove}
-      totalamount={totalAmount}
+      totalAmount={totalAmount}
     />
   );
 };

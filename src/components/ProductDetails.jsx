@@ -1,15 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { DataContext, DataProvider } from "../DataProvider/DataProvider";
 
 const ProductDetailsModal = ({ product, onClose }) => {
  const [quantity, setQuantity] = useState(0);
   console.log(product);
+  const{saveViewedProduct}=useContext(DataContext)
+  const lastSavedProductIdRef = useRef(null);
   useEffect(() => {
+    
+     
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
   }, []);
+ useEffect(() => {
+    if (!product?.product_id) return;
 
+    // Check if this product was already saved
+    if (lastSavedProductIdRef.current !== product.product_id) {
+      saveViewedProduct(product);
+      lastSavedProductIdRef.current = product.product_id;
+      console.log("📌 saveViewedProduct called for:", product.product_id);
+    }
+  }, [product]);
   if (!product) return null;
- 
+  saveViewedProduct(product)
 
   const handleQuantityChange = (action) => {
     if (action === "decrease" && quantity > 1) {
